@@ -22,6 +22,12 @@ fi
 BONEREVISION="$(${LIB_DIR}/read-eeprom.sh 50 14 2)"
 BONESERIAL="$(${LIB_DIR}/read-eeprom.sh 50 16 12)"
 
+lsusb | grep "0403:6010"
+if [ $? -ne 0 ] ; then
+	bone_echo "Failed to test FTDI EEPROM\n"
+	exit 1
+fi
+
 bone_echo "Beaglebone $BONEREVISION with serial $BONESERIAL"
 
 bone_echo "EEPROM test passed!"
